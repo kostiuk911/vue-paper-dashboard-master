@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+
+    environment {
+        NODE_VERSION = '22'
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/creativetimofficial/vue-paper-dashboard.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Build Project') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+
+        stage('Test (Optional)') {
+            steps {
+                echo 'No tests configured in this project'
+            }
+        }
+
+        stage('Deploy/Run') {
+            steps {
+                sh 'npm run serve &'
+            }
+        }
+    }
+}
